@@ -101,6 +101,7 @@ async def help(ctx):
     emb.add_field(name= "Игра 8-ball", value= "`{}ball`".format(prefix))
     emb.add_field(name= "Правила сервера", value= "`{}rules`".format(prefix))
     emb.add_field(name= "Информация о юзере", value= "`{}info @username`".format(prefix))
+    emb.add_field(name= "Колличество сообщений на сервере", value= "`{}num_msg @username`".format(prefix))
     emb.add_field(name= "Команды для модератора:", value= "`/petuh`,`/say <channel> <text>`,`/update_channel <channel>`,`/update_channel2 <channel>`,`/giveaway <channel> <msgid>`,`/cmd`", inline=True)
     emb.set_image(url= "https://i.imgur.com/wYO2dTc.jpg")
     emb.set_footer(text= f'Вызвано: {ctx.message.author}', icon_url= str(ctx.message.author.avatar_url))
@@ -246,6 +247,34 @@ async def update_channel2(ctx, channel: discord.VoiceChannel, *, new_name):
  total_text_channels = len(guild.text_channels + guild.voice_channels)
  channel = Bot.get_channel(658058242559311882)
  await channel.edit(name=f" 📌 Всего каналов: {total_text_channels}")
+                              
+class Messages:
+
+    def __init__(self, Bot):
+        self.Bot = Bot
+
+    async def number_messages(self, member):
+        n_messages = 0
+        for guild in self.Bot.guilds:
+            for channel in guild.text_channels:
+                try:
+                    async for message in channel.history(limit = None):
+                        if message.author == member:
+                            n_messages += 1
+                except (discord.Forbidden, discord.HTTPException):
+                    continue
+        return n_messages
+
+@Bot.command(name = "messages")
+async def num_msg(ctx, member: discord.Member = None):
+    user = ctx.message.author if (member == None) else member
+    messages = Messages(Bot)
+    number = await messages.number_messages(user)
+    embed = discord.Embed(title = f"Количество сообщений на сервере от **{user.name}** — **{number}**!")
+    embed.set_footer(text= f'Вызвано: {ctx.message.author}', icon_url= str(ctx.message.author.avatar_url))
+    embed.set_image(url=user.avatar_url)
+    embed.timestamp = datetime.datetime.utcnow()
+    await ctx.send(embed = embed)
 
  
 
