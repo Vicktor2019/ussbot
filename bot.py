@@ -215,7 +215,7 @@ async def ball(ctx):
 async def cmd(ctx):
     await ctx.message.delete() 
     role = ctx.guild.get_role(656579155479232513) 
-    emb = discord.Embed(title= "GIVEAWAY начат", description=f" {role.mention} **Для участия нажмите на реакцию ниже. Приз: 50.000$. Результат через 12 часов.**", color=0x99ff99)
+    emb = discord.Embed(title= "GIVEAWAY начат", description=f" {role.mention} **Для участия нажмите на реакцию ниже. Приз: 100.000$. Результат через 23 часа.**", color=0x99ff99)
     emb.set_footer(text= f"Cпонсор: {ctx.author.nick if ctx.author.nick else ctx.author.name}", icon_url=str(ctx.message.author.avatar_url))
     emb.timestamp = datetime.datetime.utcnow()
     await ctx.send(embed=emb) 
@@ -224,7 +224,7 @@ async def cmd(ctx):
 @commands.has_permissions(administrator = True) 
 async def giveaway(ctx, channel: discord.TextChannel, msgid: int):
     await ctx.message.delete() 
-    await asyncio.sleep(20)
+    await asyncio.sleep(82800)
     message = await channel.fetch_message(msgid)
     users = set([user for reaction in message.reactions for user in await reaction.users().flatten()])
     random_member = random.sample(users, 1)[0] 
