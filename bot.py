@@ -14,7 +14,7 @@ Bot = commands.Bot(command_prefix= prefix)
 
 Bot.remove_command('help')
 
-        
+ 
 
 @Bot.event
 async def on_ready():
@@ -26,6 +26,29 @@ async def on_ready():
 async def hello(ctx):
     await ctx.send("Hello {}".format(ctx.message.author.mention))
 
+@Bot.command(pass_context= True)
+async def киря(ctx):
+    await ctx.send("**Лох**")
+
+@Bot.command(pass_context= True)
+async def Киря(ctx):
+    await ctx.send("**Лох полнейший**")
+
+@Bot.command(pass_context= True)
+async def Кирилл(ctx):
+    await ctx.send("**Починит Ваш унитаз, обращайтесь**")
+
+@Bot.command(pass_context= True)
+async def Кирюша(ctx):
+    await ctx.send("**Прочистит Ваши трубы, качественно, звоните.**")
+
+@Bot.command(pass_context= True)
+async def скучно(ctx):
+    await ctx.send("**Оскорби Кирилла, реакции долго ждать не придётся**")
+
+@Bot.command(pass_context= True)
+async def оскорби(ctx):
+    await ctx.send("**Киря, ты лошара, понял? Хатьфу в морду.**")
 
 @Bot.command(pass_context= True)
 async def info(ctx, member: discord.Member):
