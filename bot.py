@@ -247,7 +247,6 @@ async def cmd(ctx):
 @commands.has_permissions(administrator = True) 
 async def giveaway(ctx, channel: discord.TextChannel, msgid: int):
     await ctx.message.delete() 
-    await asyncio.sleep(82800)
     message = await channel.fetch_message(msgid)
     users = set([user for reaction in message.reactions for user in await reaction.users().flatten()])
     random_member = random.sample(users, 1)[0] 
